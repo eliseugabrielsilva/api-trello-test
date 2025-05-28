@@ -4,21 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-"scripts": {
     "test": "cypress run",
     "cy:open": "cypress open"
-
   },
-
 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eliseugabrielsilva/api-trello-test.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Eliseu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/eliseugabrielsilva/api-trello-test/issues"

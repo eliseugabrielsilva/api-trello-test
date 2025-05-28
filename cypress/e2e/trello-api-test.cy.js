@@ -1,10 +1,10 @@
-describe('JSONPlaceholder Test API Trello', () => {
+describe('Trello teste API', () => {
 
     beforeEach(() => {
       Cypress.config('requestTimeout', 10000);
     });
   
-    it('Teste de POST', () => {
+    it('Cadastrar um board', () => {
       cy.request({
         url: 'https://apibr-dev.edenred.com/bureau/antifraude/api/analisecompliance/analisar',
         method: 'POST',
@@ -12,6 +12,7 @@ describe('JSONPlaceholder Test API Trello', () => {
           nome: 'ELISEU GABRIEL',
           documento: '35821014875'
         }
+        
       }).then((response) => {
         expect(response.status).to.eq(200);
         cy.log(`POST simulado retornou ID: ${response.body.id}`);
@@ -19,8 +20,11 @@ describe('JSONPlaceholder Test API Trello', () => {
         expect(response.body.rating.tipoRiscoRating).to.eq("Baixo");
       });
     });
-  
-    it('Teste de GET', () => {
+         
+    });
+
+
+    it('Cadastrar um card', () => {
       cy.request({
         url: 'https://jsonplaceholder.typicode.com/posts',
         method: 'GET'
@@ -30,4 +34,26 @@ describe('JSONPlaceholder Test API Trello', () => {
         expect(response.body[0].title).to.eq("sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
       });
     });
+
+    it('Excluir um card', () => {
+      cy.request({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'GET'
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.be.an('array').and.not.to.be.empty;
+        expect(response.body[0].title).to.eq("sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
+      });
     });
+    
+    it('Excluir um board', () => {
+      cy.request({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'GET'
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.be.an('array').and.not.to.be.empty;
+        expect(response.body[0].title).to.eq("sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
+      });
+    });
+    

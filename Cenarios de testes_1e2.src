@@ -1,0 +1,76 @@
+Questão 1: Cenários de Teste para o Aplicativo Bancário 
+Premissas Adotadas: 
+•	O usuário já está logado na aplicação.
+•	A aplicação é para transferência de valores entre correntistas do mesmo banco (Banco XYZ).
+•	O saldo inicial do usuário é R$ 200,00. 
+•	Os campos "Cliente destino", "Valor" e "Data de efetivação" são obrigatórios.
+•	O campo "Cliente destino" aceita apenas números (identificador de conta ou CPF/CNPJ).
+•	O campo "Valor" aceita apenas valores numéricos positivos e com duas casas decimais.
+•	O campo "Data de efetivação" aceita apenas datas futuras ou a data atual, no formato DD/MM/AAAA.
+•	Existe uma validação de saldo disponível.
+•	Existe uma mensagem de sucesso após a transferência e uma mensagem de erro em caso de falha.
+•	O botão "Cancelar" retorna à tela anterior ou limpa os campos.
+Cenários de Teste:
+1.	Transferência com Sucesso:
+o	CT001: Transferir um valor menor que o saldo disponível para um cliente destino válido com data de efetivação futura.
+o	CT002: Transferir um valor menor que o saldo disponível para um cliente destino válido com data de efetivação na data atual.
+o	CT003: Transferir o valor exato do saldo disponível para um cliente destino válido.
+2.	Validações de Campo - Cliente Destino:
+o	CT004: Tentar transferir com o campo "Cliente destino" vazio.
+o	CT005: Tentar transferir com o campo "Cliente destino" preenchido com caracteres inválidos (letras, caracteres especiais).
+o	CT006: Tentar transferir para um "Cliente destino" inexistente.
+3.	Validações de Campo - Valor:
+o	CT007: Tentar transferir com o campo "Valor" vazio.
+o	CT008: Tentar transferir com o campo "Valor" preenchido com valor zero.
+o	CT009: Tentar transferir com o campo "Valor" preenchido com valor negativo.
+o	CT010: Tentar transferir com o campo "Valor" preenchido com caracteres inválidos (letras, caracteres especiais).
+o	CT011: Tentar transferir com o campo "Valor" preenchido com mais de duas casas decimais.
+4.	Validações de Campo - Data de Efetivação:
+o	CT012: Tentar transferir com o campo "Data de efetivação" vazio.
+o	CT013: Tentar transferir com o campo "Data de efetivação" preenchido com data passada.
+o	CT014: Tentar transferir com o campo "Data de efetivação" em formato inválido (ex: AAAA/MM/DD).
+o	CT015: Tentar transferir com o campo "Data de efetivação" com data inválida (ex: 31/02/2025).
+5.	Validação de Saldo:
+o	CT016: Tentar transferir um valor maior que o saldo disponível.
+6.	Cenários de Cancelamento:
+o	CT017: Preencher todos os campos e clicar em "Cancelar".
+o	CT018: Não preencher nenhum campo e clicar em "Cancelar".
+7.	Cenários de Limite:
+o	CT019: Transferir o valor máximo permitido pela aplicação (se houver um limite, não especificado no desenho).
+o	CT020: Transferir o valor mínimo permitido pela aplicação (se houver um valor mínimo, não especificado no desenho).
+________________________________________
+Questão 2: Consultas SQL 
+Considerando o esquema Entidade/Relacionamento: 
+a) Consulta SQL para listar o nome de todos os alunos matriculados na disciplina de Cálculo do professor João. 
+SQL
+SELECT A.nome
+FROM ALUNO A
+JOIN CURSA C ON A.coda = C.coda
+JOIN DISCIPLINA D ON C.codd = D.codd
+JOIN LECIONA L ON D.codd = L.codd
+JOIN PROFESSOR P ON L.codp = P.codp
+WHERE D.nome = 'Cálculo' AND P.nome = 'João';
+b) Consulta SQL para exibir a quantidade de alunos por disciplinas. 
+SQL
+SELECT D.nome AS NomeDisciplina, COUNT(C.coda) AS QuantidadeAlunos
+FROM DISCIPLINA D
+LEFT JOIN CURSA C ON D.codd = C.codd
+GROUP BY D.nome;
+c) Consulta SQL para listar as disciplinas que todos os professores lecionam. 
+SQL
+SELECT D.nome
+FROM DISCIPLINA D
+JOIN LECIONA L ON D.codd = L.codd
+GROUP BY D.nome
+HAVING COUNT(DISTINCT L.codp) = (SELECT COUNT(*) FROM PROFESSOR);
+d) Consulta SQL que exibe o total de professores. 
+SQL
+SELECT COUNT(*) AS TotalProfessores
+FROM PROFESSOR;
+e) Consulta SQL para listar todos os alunos que cursaram alguma disciplina do ano 2000 até 2020. 
+SQL
+SELECT DISTINCT A.nome
+FROM ALUNO A
+JOIN CURSA C ON A.coda = C.coda
+WHERE C.ano BETWEEN 2000 AND 2020;
+
