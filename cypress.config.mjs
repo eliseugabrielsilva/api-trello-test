@@ -1,7 +1,9 @@
-import {defineConfig} from 'cypress';
+const { defineConfig } = require('cypress');
 
-export default defineConfig ({
-    e2e: {
-        baseUrl: 'https://reqres.in/api'
+module.exports = defineConfig({
+  e2e: {
+    baseUrl: 'https://api.trello.com/1',
+    setupNodeEvents(on, config) {
     }
+  }
 });
